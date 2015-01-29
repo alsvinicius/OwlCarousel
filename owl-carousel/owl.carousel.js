@@ -92,6 +92,8 @@ if (typeof Object.create !== "function") {
             base.prevItem = 0;
             base.prevArr = [0];
             base.currentItem = 0;
+			base.isLast = false;
+			base.shouldGoFirst = false;
             base.customEvents();
             base.onStartup();
         },
@@ -604,6 +606,12 @@ if (typeof Object.create !== "function") {
             if (typeof base.options.beforeMove === "function") {
                 base.options.beforeMove.apply(this, [base.$elem]);
             }
+			if(base.options.returnAfterLast && base.currentItem == base.itemsAmount-1){
+				base.isLast = true;
+			}		
+			else{
+				base.isLast = false;
+			}
             if (position >= base.maximumItem) {
                 position = base.maximumItem;
             } else if (position <= 0) {
@@ -663,6 +671,12 @@ if (typeof Object.create !== "function") {
             if (typeof base.options.beforeMove === "function") {
                 base.options.beforeMove.apply(this, [base.$elem]);
             }
+			if(base.options.returnAfterLast && base.currentItem == base.itemsAmount-1){
+				base.isLast = true;
+			}
+			else{
+				base.isLast = false;
+			}
             if (position >= base.maximumItem || position === -1) {
                 position = base.maximumItem;
             } else if (position <= 0) {
@@ -1033,6 +1047,20 @@ if (typeof Object.create !== "function") {
                     }
                 }
                 swapEvents("off");
+				
+				if (typeof base.options.afterDragging === "function") {
+                    base.options.afterDragging.apply(base, [base.$elem]);
+                }
+				if(base.dragDirection == 'left' && base.shouldGoFirst && base.isLast){
+					base.shouldGoFirst = false;
+					base.goTo(0);
+				}
+				if(base.isLast){
+					base.shouldGoFirst = true;
+				}
+				else{
+					base.shouldGoFirst = false;
+				}
             }
             base.$elem.on(base.ev_types.start, ".owl-wrapper", dragStart);
         },
@@ -1512,6 +1540,7 @@ if (typeof Object.create !== "function") {
         afterMove : false,
         afterAction : false,
         startDragging : false,
+		afterDragging : false,
         afterLazyLoad: false
     };
 }(jQuery, window, document));
