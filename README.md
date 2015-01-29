@@ -1,4 +1,7 @@
-##New version 2.0.0-beta now available for testers. [Check it](http://www.owlgraphic.com/owlcarousel2/)
+Fork to add:
+
+-afterDragging callback, so you can execute a function after the user stop dragging the carousel
+-returnAfterLast option. If enabled, the when the user scroll to the left on the last item of the carousel it will be brought back to the first item
 
 ### OwlCarousel ###
 >v.1.3.3
