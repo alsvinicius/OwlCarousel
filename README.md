@@ -1,7 +1,7 @@
 Fork to add:
 
 -afterDragging callback, so you can execute a function after the user stop dragging the carousel
--returnAfterLast option. If enabled, the when the user scroll to the left on the last item of the carousel it will be brought back to the first item
+-returnAfterLast option. If enabled, when the user scroll to the left on the last item of the carousel it will be brought back to the first item
 
 ### OwlCarousel ###
 >v.1.3.3
